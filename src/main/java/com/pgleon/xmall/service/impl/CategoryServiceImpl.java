@@ -39,11 +39,11 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Category get(int id) {
-        return null;
+        return categoryMapper.get(id);
     }
 
     @Override
     public void update(Category category) {
-
+        categoryMapper.update(category);
     }
 }
