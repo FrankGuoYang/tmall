@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="war" name="xmall:war">
-    <output-path>$PROJECT_DIR$/target</output-path>
-    <root id="archive" name="tmall_ssm.war">
-      <element id="artifact" artifact-name="xmall:war exploded" />
-    </root>
-  </artifact>
-</component>
