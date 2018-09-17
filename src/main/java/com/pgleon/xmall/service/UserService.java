@@ -1,6 +1,16 @@
 package com.pgleon.xmall.service;
 
-public interface UserService {
-   
+import com.pgleon.xmall.pojo.User;
+import org.springframework.stereotype.Service;
 
+import java.util.List;
+
+@Service
+public interface UserService {
+
+    void add(User user);
+    void delete(int id);
+    void update(User user);
+    User get(int id);
+    List list();
 }
