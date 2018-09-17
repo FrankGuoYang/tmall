@@ -4,7 +4,9 @@ import com.pgleon.xmall.mapper.ProductMapper;
 import com.pgleon.xmall.pojo.Category;
 import com.pgleon.xmall.pojo.Product;
 import com.pgleon.xmall.pojo.ProductExample;
+import com.pgleon.xmall.pojo.ProductImage;
 import com.pgleon.xmall.service.CategoryService;
+import com.pgleon.xmall.service.ProductImageService;
 import com.pgleon.xmall.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +20,8 @@ public class ProductServiceImpl implements ProductService {
     ProductMapper productMapper;
     @Autowired
     CategoryService categoryService;
+    @Autowired
+    ProductImageService productImageService;
 
     @Override
     public void add(Product p) {
@@ -62,5 +66,20 @@ public class ProductServiceImpl implements ProductService {
         List result = productMapper.selectByExample(productExample);
         setCategory(result);
         return result;
+    }
+
+    @Override
+    public void setFirstProductImage(Product p) {
+        List<ProductImage> pis = productImageService.list(p.getId(), ProductImageService.type_single);
+        if (!pis.isEmpty()) {
+            ProductImage pi = pis.get(0);
+            p.setFirstProductImage(pi);
+        }
+    }
+
+    public void setFirstProductImage(List<Product> ps) {
+        for (Product p : ps) {
+            setFirstProductImage(p);
+        }
     }
 }

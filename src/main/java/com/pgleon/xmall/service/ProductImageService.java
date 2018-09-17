@@ -1,5 +1,6 @@
 package com.pgleon.xmall.service;
 
+import com.pgleon.xmall.pojo.Product;
 import com.pgleon.xmall.pojo.ProductImage;
 
 import java.util.List;

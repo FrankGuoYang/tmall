@@ -3,6 +3,7 @@ package com.pgleon.xmall.service.impl;
 import com.pgleon.xmall.mapper.ProductImageMapper;
 import com.pgleon.xmall.pojo.ProductImage;
 import com.pgleon.xmall.pojo.ProductImageExample;
+import com.pgleon.xmall.service.CategoryService;
 import com.pgleon.xmall.service.ProductImageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,9 +11,13 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class ProductImageImpl implements ProductImageService {
+public class ProductImageServiceImpl implements ProductImageService {
     @Autowired
     ProductImageMapper productImageMapper;
+
+    @Autowired
+    CategoryService categoryService;
+
 
     @Override
     public void add(ProductImage productImage) {
@@ -36,9 +41,10 @@ public class ProductImageImpl implements ProductImageService {
         return productImageMapper.selectByPrimaryKey(id);
     }
 
+
     @Override
     public List list(int pid, String type) {
-        ProductImageExample example =new ProductImageExample();
+        ProductImageExample example = new ProductImageExample();
         example.createCriteria()
                 .andPidEqualTo(pid)
                 .andTypeEqualTo(type);
