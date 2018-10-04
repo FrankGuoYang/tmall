@@ -1,5 +1,7 @@
 package com.pgleon.xmall.pojo;
 
+import com.pgleon.xmall.service.OrderService;
+
 import java.util.Date;
 import java.util.List;
 
