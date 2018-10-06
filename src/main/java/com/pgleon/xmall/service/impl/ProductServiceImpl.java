@@ -77,6 +77,26 @@ public class ProductServiceImpl implements ProductService {
         }
     }
 
+//     为分类填充产品集合
+    @Override
+    public void fill(List<Category> categorys) {
+        for (Category category : categorys) {
+            fill(category);
+        }
+
+    }
+
+    @Override
+    public void fill(Category category) {
+        List<Product> ps = list(category.getId());
+        category.setProducts(ps);
+    }
+
+    @Override
+    public void fillByRow(List<Category> categorys) {
+
+    }
+
     public void setFirstProductImage(List<Product> ps) {
         for (Product p : ps) {
             setFirstProductImage(p);

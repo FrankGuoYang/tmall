@@ -61,9 +61,6 @@ hs_err_pid*
 target/generated-sources/
 target/generated-test-sources/
 target/test-classes/
-target/tmall_ssm/WEB-INF/jsp/admin/editCategory.jsp
-target/xmall/WEB-INF/
-target/xmall/admin/
-target/xmall/css/
-target/xmall/img/
-target/xmall/js/
+
+
+
