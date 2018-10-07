@@ -11,6 +11,7 @@ import com.pgleon.xmall.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -94,6 +95,19 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void fillByRow(List<Category> categorys) {
+        int productNumberEachRow = 8;
+        for (Category c : categorys) {
+            List<Product> products =  c.getProducts();
+            setFirstProductImage(products);
+            List<List<Product>> productsByRow =  new ArrayList<>();
+            for (int i = 0; i < products.size(); i+=productNumberEachRow) {
+                int size = i+productNumberEachRow;
+                size= size>products.size()?products.size():size;
+                List<Product> productsOfEachRow =products.subList(i, size);
+                productsByRow.add(productsOfEachRow);
+            }
+            c.setProductsByRow(productsByRow);
+        }
 
     }
 
