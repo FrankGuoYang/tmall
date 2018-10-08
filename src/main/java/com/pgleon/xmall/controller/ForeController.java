@@ -1,5 +1,6 @@
 package com.pgleon.xmall.controller;
 
+import com.github.pagehelper.PageHelper;
 import com.pgleon.xmall.pojo.*;
 import com.pgleon.xmall.service.*;
 import comparator.*;
@@ -150,6 +151,16 @@ public class ForeController {
 
         model.addAttribute("c", c);
         return "fore/category";
+    }
+
+    @RequestMapping("foresearch")
+    public String search( String keyword,Model model){
+
+        PageHelper.offsetPage(0,20);
+        List<Product> ps= productService.search(keyword);
+        productService.setSaleAndReviewNumber(ps);
+        model.addAttribute("ps",ps);
+        return "fore/searchResult";
     }
 }
 
