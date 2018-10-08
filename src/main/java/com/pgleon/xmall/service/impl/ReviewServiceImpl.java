@@ -2,6 +2,8 @@ package com.pgleon.xmall.service.impl;
 
 import com.pgleon.xmall.mapper.ReviewMapper;
 import com.pgleon.xmall.pojo.Review;
+import com.pgleon.xmall.pojo.ReviewExample;
+import com.pgleon.xmall.pojo.User;
 import com.pgleon.xmall.service.ReviewService;
 import com.pgleon.xmall.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,16 +36,35 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     public Review get(int id) {
-        return null;
+
+        return reviewMapper.selectByPrimaryKey(id);
     }
 
     @Override
     public List list(int pid) {
-        return null;
+        ReviewExample example = new ReviewExample();
+        example.createCriteria().andPidEqualTo(pid);
+        example.setOrderByClause("id desc");
+
+        List<Review> result = reviewMapper.selectByExample(example);
+        setUser(result);
+        return result;
+    }
+
+    private void setUser(List<Review> reviews) {
+        for (Review review : reviews) {
+            setUser(review);
+        }
+
+    }
+    private void setUser(Review review) {
+        int uid = review.getUid();
+        User user =userService.get(uid);
+        review.setUser(user);
     }
 
     @Override
     public int getCount(int pid) {
-        return 0;
+        return list(pid).size();
     }
 }

@@ -5,9 +5,7 @@ import com.pgleon.xmall.pojo.Category;
 import com.pgleon.xmall.pojo.Product;
 import com.pgleon.xmall.pojo.ProductExample;
 import com.pgleon.xmall.pojo.ProductImage;
-import com.pgleon.xmall.service.CategoryService;
-import com.pgleon.xmall.service.ProductImageService;
-import com.pgleon.xmall.service.ProductService;
+import com.pgleon.xmall.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +21,10 @@ public class ProductServiceImpl implements ProductService {
     CategoryService categoryService;
     @Autowired
     ProductImageService productImageService;
+    @Autowired
+    OrderItemService orderItemService;
+    @Autowired
+    ReviewService reviewService;
 
     @Override
     public void add(Product p) {
@@ -110,6 +112,26 @@ public class ProductServiceImpl implements ProductService {
         }
 
     }
+
+    @Override
+    public void setSaleAndReviewNumber(Product p) {
+
+        int saleCount = orderItemService.getSaleCount(p.getId());
+        p.setSaleCount(saleCount);
+
+        int reviewCount = reviewService.getCount(p.getId());
+        p.setReviewCount(reviewCount);
+    }
+
+    @Override
+    public void setSaleAndReviewNumber(List<Product> ps) {
+        for (Product p : ps) {
+            setSaleAndReviewNumber(p);
+        }
+
+    }
+
+
 
     public void setFirstProductImage(List<Product> ps) {
         for (Product p : ps) {
