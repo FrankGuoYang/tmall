@@ -166,23 +166,31 @@ public class ForeController {
 
     @RequestMapping("forebuyone")
     public String buyone(int pid, int num, HttpSession session) {
+        System.out.println(pid +"$$$$$$"+ num);
         Product p = productService.get(pid);
         int oiid = 0;
-
+        System.out.println("#######"+oiid+"########");
         User user =(User)  session.getAttribute("user");
+        System.out.println(user);
         boolean found = false;
         List<OrderItem> ois = orderItemService.listByUser(user.getId());
+        System.out.println(ois.size());
+
         for (OrderItem oi : ois) {
             if(oi.getProduct().getId().intValue()==p.getId().intValue()){
                 oi.setNumber(oi.getNumber()+num);
                 orderItemService.update(oi);
+                System.out.println(found);
                 found = true;
+                System.out.println(found);
                 oiid = oi.getId();
+                
                 break;
             }
         }
 
         if(!found){
+            System.out.println(found);
             OrderItem oi = new OrderItem();
             oi.setUid(user.getId());
             oi.setNumber(num);
@@ -242,6 +250,35 @@ public class ForeController {
         List<OrderItem> ois = orderItemService.listByUser(user.getId());
         model.addAttribute("ois", ois);
         return "fore/cart";
+    }
+
+    @RequestMapping("forechangeOrderItem")
+    @ResponseBody
+    public String changeOrderItem( Model model,HttpSession session, int pid, int number) {
+        User user =(User)  session.getAttribute("user");
+        if(null==user)
+            return "fail";
+
+        List<OrderItem> ois = orderItemService.listByUser(user.getId());
+        for (OrderItem oi : ois) {
+            if(oi.getProduct().getId().intValue()==pid){
+                oi.setNumber(number);
+                orderItemService.update(oi);
+                break;
+            }
+
+        }
+        return "success";
+    }
+
+    @RequestMapping("foredeleteOrderItem")
+    @ResponseBody
+    public String deleteOrderItem( Model model,HttpSession session,int oiid){
+        User user =(User)  session.getAttribute("user");
+        if(null==user)
+            return "fail";
+        orderItemService.delete(oiid);
+        return "success";
     }
 
 

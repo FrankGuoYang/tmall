@@ -6,13 +6,14 @@ import com.pgleon.xmall.service.OrderItemService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.Arrays;
 
-public class LoginInterceptor {
+public class LoginInterceptor extends HandlerInterceptorAdapter {
     @Autowired
     CategoryService categoryService;
     @Autowired

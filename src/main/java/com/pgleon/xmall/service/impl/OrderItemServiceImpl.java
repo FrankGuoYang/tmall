@@ -89,22 +89,32 @@ public class OrderItemServiceImpl implements OrderItemService {
 
     @Override
     public List<OrderItem> listByUser(int uid) {
+        System.out.println("listByUser");
         OrderItemExample example =new OrderItemExample();
+        System.out.println(example);
         example.createCriteria().andUidEqualTo(uid).andOidIsNull();
+        System.out.println("preaper");
         List<OrderItem> result =orderItemMapper.selectByExample(example);
+        System.out.println(result.size());
+        System.out.println(result.get(0).getId());
         setProduct(result);
+        System.out.println("setOK");
         return result;
     }
 
     public void setProduct(List<OrderItem> ois){
+        System.out.println("setList");
         for (OrderItem oi: ois){
             setProduct(oi);
         }
     }
 
     private void setProduct(OrderItem oi) {
-        Product product = productService.get(oi.getId());
+        System.out.println("setItem1");
+        Product product = productService.get(oi.getPid());
+        System.out.println("get product");
         oi.setProduct(product);
+        System.out.println("setItem finish");
     }
 
 }
