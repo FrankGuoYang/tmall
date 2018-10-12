@@ -96,7 +96,6 @@ public class OrderItemServiceImpl implements OrderItemService {
         System.out.println("preaper");
         List<OrderItem> result =orderItemMapper.selectByExample(example);
         System.out.println(result.size());
-        System.out.println(result.get(0).getId());
         setProduct(result);
         System.out.println("setOK");
         return result;
