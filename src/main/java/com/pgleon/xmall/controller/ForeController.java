@@ -331,6 +331,15 @@ public class ForeController {
         return "fore/confirmPay";
     }
 
+    @RequestMapping("foreorderConfirmed")
+    public String orderConfirmed( Model model,int oid) {
+        Order o = orderService.get(oid);
+        o.setStatus(OrderService.waitReview);
+        o.setConfirmDate(new Date());
+        orderService.update(o);
+        return "fore/orderConfirmed";
+    }
+
     @RequestMapping("foredeleteOrder")
     @ResponseBody
     public String deleteOrder( Model model,int oid){
